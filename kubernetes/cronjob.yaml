@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: configmap-updater
+spec:
+  schedule: "0 0,8,16 * * *"  # Runs three times a day at midnight, 8 AM, and 4 PM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: configmap-updater
+            image: your-docker-image:latest  # Replace with your actual Docker image
+            command: ["python", "/app/main.py"]  # Adjust the path if necessary
+          restartPolicy: OnFailure
